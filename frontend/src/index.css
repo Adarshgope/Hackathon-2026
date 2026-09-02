@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   VORTEX design system — "Ocean Blue & Shipment Box Gold"
+   ========================================================================== */
+
+@theme {
+  /* Deep maritime navy → ocean cobalt → coastal blue */
+  --color-abyss: #05101f;
+  --color-navy: #0a192f;
+  --color-navy-2: #0b2545;
+  --color-cobalt: #134074;
+  --color-coastal: #1d4ed8;
+  --color-coastal-2: #3b82f6;
+
+  /* Cargo golds */
+  --color-cargo: #eab308;
+  --color-amber-cargo: #f59e0b;
+  --color-hazard: #fde047;
+
+  --font-display: "Space Grotesk", "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-abyss);
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: #e2e8f0;
+    background: var(--color-abyss);
+    overflow-x: hidden;
+  }
+
+  /* Slim maritime scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #061223; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #134074, #1d4ed8);
+    border-radius: 999px;
+    border: 2px solid #061223;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #eab308, #f59e0b); }
+
+  ::selection { background: rgba(234, 179, 8, 0.3); color: #fff; }
+
+  input, select, textarea, button { font-family: inherit; }
+
+  /* Kill the number-input spinners — every numeric field here is a real value */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type="number"] { -moz-appearance: textfield; }
+}
+
+@layer components {
+  /* Frosted glass surface — the core card treatment */
+  .glass {
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  .glass-gold {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(234, 179, 8, 0.28);
+  }
+
+  /* Primary CTA — the gold pill used site-wide */
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.65rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #0a192f;
+    background: linear-gradient(135deg, #fde047 0%, #eab308 48%, #f59e0b 100%);
+    box-shadow: 0 10px 30px -10px rgba(234, 179, 8, 0.65),
+                inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s, filter 0.25s;
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    box-shadow: 0 18px 40px -12px rgba(234, 179, 8, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .btn-gold:active { transform: translateY(0); }
+  .btn-gold:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.35rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    color: #bfdbfe;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    background: rgba(10, 25, 47, 0.6);
+    transition: all 0.22s ease;
+  }
+  .btn-ghost:hover {
+    color: #fff;
+    border-color: rgba(234, 179, 8, 0.55);
+    background: rgba(19, 64, 116, 0.55);
+  }
+
+  .kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #eab308;
+  }
+
+  .field {
+    width: 100%;
+    border-radius: 0.65rem;
+    background: rgba(2, 6, 23, 0.72);
+    border: 1px solid rgba(59, 130, 246, 0.22);
+    padding: 0.6rem 0.85rem;
+    color: #f1f5f9;
+    font-size: 0.875rem;
+    transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  .field:focus {
+    outline: none;
+    border-color: rgba(234, 179, 8, 0.6);
+    box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.14);
+  }
+  .field::placeholder { color: #64748b; }
+
+  /* Corrugated steel used by every shipping container in the scene */
+  .corrugated {
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.26) 0px,
+      rgba(0, 0, 0, 0.26) 2px,
+      rgba(255, 255, 255, 0.14) 4px,
+      rgba(255, 255, 255, 0.14) 7px,
+      rgba(0, 0, 0, 0.06) 10px,
+      rgba(0, 0, 0, 0.06) 13px
+    );
+  }
+
+  /* Heavy lifting chain — repeating links down a narrow strip */
+  .chain {
+    background-image:
+      repeating-linear-gradient(
+        180deg,
+        #64748b 0px, #cbd5e1 3px, #94a3b8 8px, #334155 11px,
+        #1e293b 13px, #475569 16px, #94a3b8 20px, #64748b 22px
+      );
+    box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.55),
+                inset 2px 0 3px rgba(255, 255, 255, 0.18);
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  .glow-gold { box-shadow: 0 0 60px -12px rgba(234, 179, 8, 0.55); }
+  .glow-blue { box-shadow: 0 0 70px -14px rgba(59, 130, 246, 0.6); }
+
+  .gradient-text {
+    background: linear-gradient(120deg, #fde047, #eab308 45%, #f59e0b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Fine grid used behind hero + dashboard panels */
+  .grid-lines {
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes (ambient motion; GSAP drives everything scroll-linked)
+   -------------------------------------------------------------------------- */
+
+@keyframes vortex-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+.animate-float { animation: vortex-float 6s ease-in-out infinite; }
+
+@keyframes vortex-pulse-ring {
+  0%   { transform: scale(0.85); opacity: 0.75; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.animate-ping-slow { animation: vortex-pulse-ring 2.6s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+@keyframes vortex-sheen {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(320%) skewX(-18deg); }
+}
+.animate-sheen { animation: vortex-sheen 4.5s ease-in-out infinite; }
+
+@keyframes vortex-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: vortex-marquee 42s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float, .animate-ping-slow, .animate-sheen, .animate-marquee { animation: none; }
+  html { scroll-behavior: auto; }
+}

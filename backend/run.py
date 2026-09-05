@@ -10,6 +10,7 @@ is busy, run on another one and point the frontend at it:
     VITE_API_URL=http://localhost:5050 npm run dev
 """
 
+import os
 import socket
 import sys
 
@@ -29,12 +30,16 @@ def _port_is_free(host, port):
 
 
 if __name__ == "__main__":
+    # The debug reloader re-executes this file in a child process while the
+    # parent already owns the socket — banner and preflight belong to the
+    # first run only.
+    reloading = os.environ.get("WERKZEUG_RUN_MAIN") == "true"
     status = db_status()
     print("=" * 68)
     print("  VORTEX API  |  SIH26006  |  East Coast Freight Intelligence")
     print("=" * 68)
 
-    if not _port_is_free(config.HOST, config.PORT):
+    if not reloading and not _port_is_free(config.HOST, config.PORT):
         print(f"  Port {config.PORT} is already in use.")
         if config.PORT == 5000 and sys.platform == "darwin":
             print("  On macOS this is usually Control Center's AirPlay Receiver.")
